@@ -15,16 +15,11 @@ public class FactoryRobotHazardAnalyzer {
         System.out.print("Enter Worker Density: ");
         int workerDensity = scanner.nextInt();
 
-        scanner.nextLine(); // Clear buffer
+        // UC3: Risk Calculation (No Validation)
+        double hazardRisk = armPrecision * workerDensity;
 
-        System.out.print("Enter Machinery State: ");
-        String machineryState = scanner.nextLine();
-
-        // Echo inputs
-        System.out.println("\n--- Input Summary ---");
-        System.out.println("Arm Precision: " + armPrecision);
-        System.out.println("Worker Density: " + workerDensity);
-        System.out.println("Machinery State: " + machineryState);
+        // Output
+        System.out.println("Hazard Risk Score: " + hazardRisk);
 
         scanner.close();
     }
