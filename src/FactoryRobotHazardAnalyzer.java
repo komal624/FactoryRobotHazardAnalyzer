@@ -8,36 +8,40 @@ public class FactoryRobotHazardAnalyzer {
 
         Scanner scanner = new Scanner(System.in);
 
-        // Input collection
-        System.out.print("Enter Arm Precision: ");
-        double armPrecision = scanner.nextDouble();
+        try {
+            // Input collection
+            System.out.print("Enter Arm Precision: ");
+            double armPrecision = scanner.nextDouble();
 
-        System.out.print("Enter Worker Density: ");
-        int workerDensity = scanner.nextInt();
+            System.out.print("Enter Worker Density: ");
+            int workerDensity = scanner.nextInt();
 
-        // UC5: Call to business logic method
-        double hazardRisk = calculateHazardRisk(armPrecision, workerDensity);
+            // UC6: Call method that may throw exception
+            double hazardRisk = calculateHazardRisk(armPrecision, workerDensity);
 
-        if (hazardRisk != -1) {
             System.out.println("Hazard Risk Score: " + hazardRisk);
+
+        } catch (RobotSafetyException e) {
+            // UC6: Exception message displayed here
+            System.out.println("Safety Error: " + e.getMessage());
         }
 
         scanner.close();
     }
 
-    // Business logic + validation
-    public static double calculateHazardRisk(double armPrecision, int workerDensity) {
+    // UC6: Business logic throws custom exception
+    public static double calculateHazardRisk(double armPrecision, int workerDensity)
+            throws RobotSafetyException {
 
         if (armPrecision <= 0 || armPrecision > 100) {
-            System.out.println("Invalid Arm Precision. Must be between 1 and 100.");
-            return -1;
+            throw new RobotSafetyException("Arm Precision must be between 1 and 100");
         }
 
         if (workerDensity < 0 || workerDensity > 500) {
-            System.out.println("Invalid Worker Density. Must be between 0 and 500.");
-            return -1;
+            throw new RobotSafetyException("Worker Density must be between 0 and 500");
         }
 
         return armPrecision * workerDensity;
     }
 }
+
