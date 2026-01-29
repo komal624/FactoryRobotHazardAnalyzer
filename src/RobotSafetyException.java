@@ -4,3 +4,4 @@ public class RobotSafetyException extends Exception {
         super(message);
     }
 }
+
